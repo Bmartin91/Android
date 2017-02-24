@@ -1,0 +1,47 @@
+public Cursor readAllDataFromDB() // This method will read all the info from the Dolphin Table and return the cursor object
+{
+	String tableSelection = DolphinContract.DolphinTable.DOLPHIN_TABLE_NAME + " LEFT OUTER JOIN " + DolphinContract.ObservationTable.OBSERVATION_TABLE_NAME
+							+ " ON  " + DolphinContract.DolphinTable.DOLPHIN_TABLE_ID + " = " + DolphinContract.ObservationTable.OBSERVATION_TABLE_ID;
+
+	//  The columns that will be selected in the query.  All of them in this case.
+	String[] projection = {
+			DolphinContract.DolphinTable.DOLPHIN_TABLE_ID,
+			DolphinContract.DolphinTable.SIZE,
+			DolphinContract.DolphinTable.COLOR,
+			DolphinContract.DolphinTable.ENTERED_DATE_TIME,
+			DolphinContract.DolphinTable.OBSERVED_DATE_TIME,
+			DolphinContract.DolphinTable.BASE_GPS_LATITUDE,
+			DolphinContract.DolphinTable.BASE_GPS_LONGITUDE,
+			DolphinContract.DolphinTable.DISTANCE_FROM_BOAT,
+			DolphinContract.DolphinTable.LOCATION_FROM_BOAT,
+			DolphinContract.DolphinTable.LOCATION_HEADING,
+			DolphinContract.DolphinTable.SWIMMING_DIRECTION,
+			DolphinContract.DolphinTable.SWIMMING_HEADING,
+			DolphinContract.DolphinTable.HEADING,
+			DolphinContract.DolphinTable.ENERGY_LEVEL,
+			DolphinContract.DolphinTable.SWIMMING_ACTIVITY,
+			DolphinContract.DolphinTable.DOLPHIN_ACOUSTICS,
+			DolphinContract.DolphinTable.DOLPHIN_BEHAVIOR,
+			DolphinContract.DolphinTable.SOCIAL_GROUPING,
+			DolphinContract.DolphinTable.ADDITIONAL_BEHAVIOR,
+			DolphinContract.DolphinTable.OBSERVATION_LOCATION_ID,
+			DolphinContract.ObservationTable.OBSERVATION_TABLE_ID,
+			DolphinContract.ObservationTable.LOCATION_NAME,
+			DolphinContract.ObservationTable.WEATHER,
+			DolphinContract.ObservationTable.START_DATE_TIME,
+			DolphinContract.ObservationTable.END_DATE_TIME,
+			DolphinContract.ObservationTable.WATER_DEPTH,
+			DolphinContract.ObservationTable.WATER_TEMPERATURE,
+			DolphinContract.ObservationTable.START_GPS_LATITUDE,
+			DolphinContract.ObservationTable.START_GPS_LONGITUDE,
+			DolphinContract.ObservationTable.END_GPS_LATITUDE,
+			DolphinContract.ObservationTable.END_GPS_LONGITUDE
+	};
+
+	// Used to sort the entries by the date/time they were saved starting with the newest at the top.  This can be changed later if need be
+	String sortOrder = DolphinContract.DolphinTable.OBSERVED_DATE_TIME + " DESC";
+
+	Cursor dolphinCursor = dolphinDB.query(tableSelection, projection, null, null, null, null,sortOrder);
+
+	return dolphinCursor;
+}
